@@ -1,0 +1,26 @@
+{
+    "name": "scriptotek/libleaf-api",
+    "type": "project",
+    "require": {
+        "php": ">=7.3",
+        "ext-json": "*",
+        "vlucas/phpdotenv": "^3.6",
+        "sentry/sentry": "^2.1",
+        "php-http/curl-client": "^2.0",
+        "guzzlehttp/psr7": "^1.6",
+        "symfony/http-foundation": "^4.3"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Dan Michael O. Heggø",
+            "email": "danmichaelo@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/"
+        }
+    },
+    "minimum-stability": "stable"
+}

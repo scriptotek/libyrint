@@ -1,0 +1,20 @@
+{
+  "source": {
+    "include": [ "resources/js/" ],
+    "includePattern": "\\.(vue|js)$"
+  },
+  "opts": {
+    "template": "node_modules/tui-jsdoc-template",
+    "package": "package.json",
+    "recurse": true,
+    "encoding": "utf8"
+  },
+  "plugins": [
+    "plugins/markdown",
+    "node_modules/jsdoc-vuejs"
+  ],
+  "markdown": {
+    "tags": ["example"],
+    "idInHeadings": true
+  }
+}
