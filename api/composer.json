@@ -4,6 +4,8 @@
     "require": {
         "php": ">=7.2",
         "ext-json": "*",
+        "ext-pdo": "*",
+        "ext-pdo_sqlite": "*",
         "vlucas/phpdotenv": "^3.6",
         "sentry/sentry": "^2.1",
         "php-http/curl-client": "^2.0",
