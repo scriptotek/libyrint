@@ -1,6 +1,5 @@
 const mix = require('laravel-mix');
 require('laravel-mix-eslint');
-require('dotenv').config()
 
 /*
  |--------------------------------------------------------------------------
@@ -14,7 +13,6 @@ require('dotenv').config()
  */
 mix
   .setPublicPath('public')
-  .setResourceRoot(process.env.MIX_BASE_PATH)
   .js('resources/js/app.js', 'public/js').eslint()
   .sourceMaps()
   .sass('resources/sass/app.scss', 'public/css')

@@ -4,3 +4,5 @@ public/js
 public/images
 public/mix-manifest.json
 .env
+composer.lock
+vendor

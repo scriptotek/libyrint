@@ -1,5 +1,10 @@
 <?php
 
+require('vendor/autoload.php');
+
+$dotenv = Dotenv\Dotenv::create(__DIR__);
+$dotenv->load();
+
 function mix($path) {
     $manifests = [];
     $publicPath = __DIR__ . '/public';
@@ -25,5 +30,5 @@ function mix($path) {
         throw new Exception("Unable to locate Mix file: {$path}.");
     }
 
-    return $manifest[$path];
+    return rtrim($_ENV['MIX_BASE_PATH'], '/') . $manifest[$path];
 }
