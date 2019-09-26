@@ -14,7 +14,7 @@ class Libraries {
 
     protected function parseRow(array $row)
     {
-        $row['name'] = json_decode($row['name'], $assoc = true, JSON_THROW_ON_ERROR);
+        $row['name'] = json_decode($row['name'], $assoc = true);  // Once we have PHP 7.3: JSON_THROW_ON_ERROR
         return $row;
     }
 

@@ -2,7 +2,7 @@
     "name": "scriptotek/libleaf-api",
     "type": "project",
     "require": {
-        "php": ">=7.3",
+        "php": ">=7.2",
         "ext-json": "*",
         "vlucas/phpdotenv": "^3.6",
         "sentry/sentry": "^2.1",

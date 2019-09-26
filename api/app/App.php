@@ -12,7 +12,7 @@ class App {
     protected $db;
     protected $libraries;
     protected $maps;
-    protected $jsonEncodeOptions = JSON_PRETTY_PRINT || JSON_UNESCAPED_UNICODE || JSON_THROW_ON_ERROR;
+    protected $jsonEncodeOptions = JSON_PRETTY_PRINT || JSON_UNESCAPED_UNICODE;  // Once we have PHP 7.3: JSON_THROW_ON_ERROR
 
     public function __construct()
     {

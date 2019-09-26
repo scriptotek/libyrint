@@ -13,7 +13,7 @@ class Maps {
 
     protected function parseRow(array $row)
     {
-        $row['body'] = json_decode($row['body'], $assoc = true, JSON_THROW_ON_ERROR);
+        $row['body'] = json_decode($row['body'], $assoc = true);  // Once we have PHP 7.3: JSON_THROW_ON_ERROR
         return $row;
     }
 
