@@ -30,7 +30,7 @@ class DB {
 
     public function __construct(PDO $conn)
     {
-        $this->conn = $conn;        
+        $this->conn = $conn;
     }
 
     public function query(string $query, array $args = [])
@@ -40,6 +40,16 @@ class DB {
             $stmt->bindParam(':'.$key, $val, PDO::PARAM_STR);
         }
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt;
+    }
+
+    public function select(string $query, array $args = [])
+    {
+        return $this->query($query, $args)->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function update(string $query, array $args = [])
+    {
+        return $this->query($query, $args)->rowCount();
     }
 }

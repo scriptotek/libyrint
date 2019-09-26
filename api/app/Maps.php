@@ -34,13 +34,13 @@ class Maps {
         }
         return array_map(
             [$this, 'parseRow'],
-            $this->db->query($sql, $query)
+            $this->db->select($sql, $query)
         );
     }
 
     public function get(string $id)
     {
-        $rows = $this->db->query(
+        $rows = $this->db->select(
             'SELECT * FROM maps WHERE id = :id',
             ['id' => $id]
         );
@@ -53,19 +53,26 @@ class Maps {
     public function put($map)
     {
         $map['body'] = json_encode($map['body']);
-        $this->db->query(
-            'INSERT INTO maps (id, library_id, name, body) 
-            VALUES (:id, :library_id, :name, :body)
-            ON CONFLICT(id) DO UPDATE SET
-                library_id=excluded.library_id,
-                name=excluded.name,
-                body=excluded.body
-            ',
+
+        // We have to work with sqlite <3.24, so we cannot use the native UPSERT
+        // Source: https://stackoverflow.com/a/38463024/489916
+        $modified = $this->db->update(
+            'UPDATE maps
+            SET library_id=:library_id,
+                name=:name,
+                body=:body
+            WHERE id=:id',
             $map
         );
 
+        if ($modified === 0) {
+            $this->db->update(
+                'INSERT INTO maps (id, library_id, name, body)
+                VALUES (:id, :library_id, :name, :body)',
+                $map
+            );
+        }
+
         return $this->get($map['id']);
     }
-
-    
 }

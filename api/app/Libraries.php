@@ -22,13 +22,13 @@ class Libraries {
     {        
         return array_map(
             [$this, 'parseRow'],
-            $this->db->query('SELECT * FROM libraries')
+            $this->db->select('SELECT * FROM libraries')
         );
     }
 
     public function get(string $id)
     {
-        $rows = $this->db->query(
+        $rows = $this->db->select(
             'SELECT * FROM libraries WHERE id = :id',
             ['id' => $id]
         );
@@ -48,14 +48,24 @@ class Libraries {
         }
 
         $data['name'] = json_encode($data['name']);
-        $this->db->query(
-            'INSERT INTO libraries (id, name) 
-            VALUES (:id, :name)
-            ON CONFLICT(id) DO UPDATE SET
-                name=excluded.name
-            ',
+
+        // We have to work with sqlite <3.24, so we cannot use the native UPSERT
+        // Source: https://stackoverflow.com/a/38463024/489916
+        $modified = $this->db->update(
+            'UPDATE libraries
+            SET name=:name
+            WHERE id=:id',
             $data
         );
+
+        if ($modified === 0) {
+            $this->db->update(
+                'INSERT INTO libraries (id, name)
+                VALUES (:id, :name)',
+                $data
+            );
+
+        }
 
         return $this->get($data['id']);
     }
