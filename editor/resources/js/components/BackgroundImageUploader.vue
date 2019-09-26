@@ -21,7 +21,7 @@
           id="inputGroupFile01"
           ref="file"
           type="file"
-          accept="image/png,image/jpg,image/svg"
+          accept="image/png,image/jpeg,image/gif,image/svg+xml"
           class="custom-file-input"
           aria-describedby="inputGroupFileAddon01"
           @change="onChange"
