@@ -2,10 +2,10 @@
 
 namespace App;
 
+use Contao\ImagineSvg\Imagine;
 use RuntimeException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-
 class App {
 
     protected $storageDirectory;
@@ -137,14 +137,28 @@ class App {
 
         $file = $request->files->get('image');
 
-        $filename = $mapId.'.'.$file->guessExtension();
+        $fileExt = $file->guessExtension();
+        $filename = $mapId . '.' . $fileExt;
+        $filePath = $this->storageDirectory . '/' . $filename;
+
         $file->move($this->storageDirectory, $filename);
 
-        $size = getimagesize($this->storageDirectory.'/'.$filename);
-
         $map['body']['image']['src'] = $filename;
-        $map['body']['image']['width'] = $size[0];
-        $map['body']['image']['height'] = $size[1];
+
+        if ($fileExt === 'svg') {
+            $size = (new Imagine())
+                ->open($filePath)
+                ->getSize();
+            $map['body']['image']['width'] = $size->getWidth();
+            $map['body']['image']['height'] = $size->getHeight();
+        } else {
+            $size = getimagesize($filePath);
+            if ($size === false) {
+                throw new RuntimeException('Failed to find image size!');
+            }
+            $map['body']['image']['width'] = $size[0];
+            $map['body']['image']['height'] = $size[1];
+        }
 
         return $this->jsonResponse([
             'map' => $this->maps->put($map),

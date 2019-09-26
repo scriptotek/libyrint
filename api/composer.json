@@ -10,7 +10,8 @@
         "sentry/sentry": "^2.1",
         "php-http/curl-client": "^2.0",
         "guzzlehttp/psr7": "^1.6",
-        "symfony/http-foundation": "^4.3"
+        "symfony/http-foundation": "^4.3",
+        "contao/imagine-svg": "^0.2.2"
     },
     "license": "MIT",
     "authors": [
