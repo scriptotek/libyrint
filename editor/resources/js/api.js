@@ -42,7 +42,7 @@ class Api {
   }
 
   storeLibrary (data) {
-    return this.request('put', {
+    return this.request('post', {
       data: data,
       params: {
         action: 'storeLibrary',
@@ -59,7 +59,7 @@ class Api {
   }
 
   storeMap (data) {
-    return this.request('put', {
+    return this.request('post', {
       data: data,
       params: {
         action: 'storeMap',
